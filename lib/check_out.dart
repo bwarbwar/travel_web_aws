@@ -362,6 +362,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
           const SizedBox(height: 32),
           _buildPayButton(),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.shield, size: 16, color: Colors.grey),
+              SizedBox(width: 6),
+              Text(
+                'Secure Stripe Checkout',
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -474,6 +486,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Text(
+                      'Shopping Cart',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
                     const Text(
                       'Sri Lankan Express: Soul Searching in Paradise',
                       style: TextStyle(

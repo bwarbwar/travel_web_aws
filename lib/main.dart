@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'check_out.dart';
+import 'group_calendar_page.dart';
 import 'home_page.dart';
+import 'private_corporate_page.dart';
+import 'travel_detail.dart';
 
 void main() {
   runApp(const AvantourApp());
@@ -25,6 +28,12 @@ class AvantourApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF8FAFC),
       ),
       home: const HomePage(),
+      routes: {
+        '/checkout': (context) => const CheckoutPage(),
+        '/group-calendar': (context) => const GroupCalendarPage(),
+        '/private-corporate': (context) => const PrivateCorporatePage(),
+        '/tour-detail': (context) => const TravelDetailPage(),
+      },
     );
   }
 }
