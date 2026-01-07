@@ -67,8 +67,20 @@ class Sidebar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 _navItem(Icons.explore, "Explore", isActive: true),
-                _navItem(Icons.privacy_tip_outlined, "Private Trips"),
-                _navItem(Icons.group_add_outlined, "Group Calendar"),
+                _navItem(
+                  Icons.business_center_outlined,
+                  "Private & Corporate",
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/private-corporate');
+                  },
+                ),
+                _navItem(
+                  Icons.group_add_outlined,
+                  "Group Calendar",
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/group-calendar');
+                  },
+                ),
 
 
               ],
@@ -99,7 +111,12 @@ class Sidebar extends StatelessWidget {
     );
   }
 
-  Widget _navItem(IconData icon, String label, {bool isActive = false}) {
+  Widget _navItem(
+    IconData icon,
+    String label, {
+    bool isActive = false,
+    VoidCallback? onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2),
       decoration: BoxDecoration(
@@ -125,6 +142,7 @@ class Sidebar extends StatelessWidget {
         dense: true,
         visualDensity: VisualDensity.compact,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        onTap: onTap,
       ),
     );
   }
@@ -223,6 +241,10 @@ class MainContent extends StatelessWidget {
               _buildSectionHeader("Recommended for You", hasSparkle: true),
               const SizedBox(height: 16),
               _buildRecommendedGrid(context),
+              const SizedBox(height: 40),
+              _buildSectionHeader("Group Travel Calendar", showViewAll: true),
+              const SizedBox(height: 16),
+              _buildGroupCalendarPreview(context),
               const SizedBox(height: 48),
               _buildSectionHeader("Explore by Theme", showViewAll: true),
               const SizedBox(height: 16),
@@ -231,6 +253,13 @@ class MainContent extends StatelessWidget {
               _buildSectionHeader("Trending Today", hasFire: true),
               const SizedBox(height: 16),
               _buildTrendingRow(context),
+              const SizedBox(height: 40),
+              _buildSectionHeader(
+                "Private & Corporate Travel",
+                showViewAll: true,
+              ),
+              const SizedBox(height: 16),
+              _buildPrivateCorporateBanner(context),
               const SizedBox(height: 40),
             ]),
           ),
@@ -391,6 +420,114 @@ class MainContent extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildGroupCalendarPreview(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Confirmed 2026 departures",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            "Browse every confirmed group tour in one calendar.",
+            style: TextStyle(color: Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: const [
+              _CalendarChip(label: "Sri Lanka • Feb 04"),
+              _CalendarChip(label: "Turkey • Apr 03"),
+              _CalendarChip(label: "Mongolia • Mar 12"),
+              _CalendarChip(label: "Italy • Apr 26"),
+            ],
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/group-calendar');
+              },
+              icon: const Icon(Icons.calendar_month),
+              label: const Text("Open Group Travel Calendar"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPrivateCorporateBanner(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: LinearGradient(
+          colors: [const Color(0xFF0EA5E9), const Color(0xFF38BDF8)],
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Luxury, Incentives & MICE",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            "Plan private journeys, executive retreats, and corporate incentives with a dedicated concierge.",
+            style: TextStyle(color: Colors.white70),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/private-corporate');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: const Color(0xFF0EA5E9),
+            ),
+            child: const Text("Start a Private & Corporate Request"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CalendarChip extends StatelessWidget {
+  final String label;
+  const _CalendarChip({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0EA5E9).withOpacity(0.1),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+      ),
     );
   }
 }

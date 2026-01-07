@@ -223,6 +223,8 @@ class TravelDetailPage extends StatelessWidget {
         const SizedBox(height: 16),
         _buildHighlightCards(),
         const Divider(height: 64),
+        _buildAccommodationShowcase(),
+        const Divider(height: 64),
         const Text(
           "About this experience",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -251,6 +253,8 @@ class TravelDetailPage extends StatelessWidget {
         _buildIncludedSection(),
         const Divider(height: 64),
         _buildItineraryTimeline(),
+        const Divider(height: 64),
+        _buildCartCta(),
       ],
     );
   }
@@ -487,6 +491,216 @@ class TravelDetailPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildAccommodationShowcase() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Accommodation options",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        const Text(
+          "Compare the included hotels to understand the pricing tiers.",
+          style: TextStyle(color: Colors.grey),
+        ),
+        const SizedBox(height: 20),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final isWide = constraints.maxWidth > 700;
+            return Flex(
+              direction: isWide ? Axis.horizontal : Axis.vertical,
+              children: [
+                Expanded(
+                  child: _accommodationCard(
+                    title: "Standard",
+                    subtitle: "Comfort hotels with daily breakfast",
+                    perks: const [
+                      "3-4 star boutique stays",
+                      "Twin-share rooms",
+                      "Central locations",
+                    ],
+                    imageUrl:
+                        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+                    accent: const Color(0xFF0EA5E9),
+                  ),
+                ),
+                SizedBox(width: isWide ? 20 : 0, height: isWide ? 0 : 20),
+                Expanded(
+                  child: _accommodationCard(
+                    title: "Premium",
+                    subtitle: "Upgrade to premium resorts & room upgrades",
+                    perks: const [
+                      "5-star beachfront resorts",
+                      "Private room upgrades",
+                      "Priority check-in perks",
+                    ],
+                    imageUrl:
+                        "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d1?auto=format&fit=crop&w=800&q=80",
+                    accent: const Color(0xFFEAB308),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _accommodationCard({
+    required String title,
+    required String subtitle,
+    required List<String> perks,
+    required String imageUrl,
+    required Color accent,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              imageUrl,
+              height: 180,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: accent.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  title.toUpperCase(),
+                  style: TextStyle(
+                    color: accent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                subtitle,
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ...perks.map(
+            (perk) => Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle, size: 16, color: accent),
+                  const SizedBox(width: 8),
+                  Text(perk),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCartCta() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Build your cart",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            "Add your tour and extras before moving to secure Stripe checkout.",
+            style: TextStyle(color: Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              _cartItem("Sri Lankan Express Tour", "THB 20,266", true),
+              _cartItem("Private Airport Transfer", "THB 1,250", false),
+              _cartItem("Premium Accommodation Upgrade", "THB 4,900", false),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0EA5E9),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text("Add all to cart"),
+                ),
+              ),
+              const SizedBox(width: 12),
+              OutlinedButton(
+                onPressed: () {},
+                child: const Text("Customize extras"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _cartItem(String title, String price, bool isIncluded) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            isIncluded ? Icons.check_circle : Icons.add_circle_outline,
+            color: isIncluded ? Colors.green : Colors.grey,
+            size: 18,
+          ),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+              Text(price, style: const TextStyle(color: Colors.grey)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// --- Booking Sidebar Card ---
@@ -516,6 +730,8 @@ class BookingSidebar extends StatelessWidget {
             "From THB 20,266 / pax",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 12),
+          _buildAvailabilityInfo(),
           const SizedBox(height: 20),
           _bookingOption("4 - 8 Feb 26", "THB 20,266", true),
           const SizedBox(height: 12),
@@ -526,6 +742,110 @@ class BookingSidebar extends StatelessWidget {
             "THB 21,458",
             false,
             isConfirmed: true,
+          ),
+          const SizedBox(height: 20),
+          _buildCartSummary(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAvailabilityInfo() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text(
+            "Live availability",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(Icons.place_outlined, size: 16, color: Colors.grey),
+              SizedBox(width: 6),
+              Text("Starts from Colombo, Sri Lanka"),
+            ],
+          ),
+          SizedBox(height: 6),
+          Row(
+            children: [
+              Icon(Icons.event_available, size: 16, color: Colors.green),
+              SizedBox(width: 6),
+              Text("Confirmed · 4 slots remaining"),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCartSummary(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Cart preview",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          _cartRow("Sri Lankan Express (2 pax)", "THB 40,532"),
+          _cartRow("Premium stay upgrade", "THB 4,900"),
+          _cartRow("Airport transfer", "THB 1,250"),
+          const Divider(height: 24),
+          _cartRow("Total", "THB 46,682", isTotal: true),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/checkout');
+              },
+              child: const Text("Proceed to secure checkout"),
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            "Stripe-powered payments with PCI-compliant security.",
+            style: TextStyle(color: Colors.grey, fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _cartRow(String label, String value, {bool isTotal = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
+              color: isTotal ? Colors.black : Colors.grey.shade700,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w600,
+              color: isTotal ? const Color(0xFF0EA5E9) : Colors.black,
+            ),
           ),
         ],
       ),
