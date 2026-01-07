@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'check_out.dart';
 import 'home_page.dart';
 
 void main() {

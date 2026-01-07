@@ -16,7 +16,9 @@ class TravelDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: isDesktop ? MediaQuery.of(context).size.width * 0.1 : 20,
+            horizontal: isDesktop
+                ? MediaQuery.of(context).size.width * 0.1
+                : 20,
             vertical: 32,
           ),
           child: Column(
@@ -29,16 +31,10 @@ class TravelDetailPage extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: _buildMainContent(),
-                  ),
+                  Expanded(flex: 2, child: _buildMainContent()),
                   if (isDesktop) ...[
                     const SizedBox(width: 48),
-                    const Expanded(
-                      flex: 1,
-                      child: BookingSidebar(),
-                    ),
+                    const Expanded(flex: 1, child: BookingSidebar()),
                   ],
                 ],
               ),
@@ -59,26 +55,26 @@ class TravelDetailPage extends StatelessWidget {
       elevation: 0,
       centerTitle: false,
       title: SizedBox(
-      height: 32,
-      child: CachedNetworkImage(
-        imageUrl:
-        'https://framerusercontent.com/images/pPfPb5iDwQ0gmmLmQSsfNtPcudA.png',
-        fit: BoxFit.contain,
-        placeholder: (context, url) => const SizedBox(
-          width: 32,
-          height: 32,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
-        errorWidget: (context, url, error) => const Text(
-          'Avantour',
-          style: TextStyle(
-            color: Color(0xFF2196F3),
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
+        height: 32,
+        child: CachedNetworkImage(
+          imageUrl:
+              'https://framerusercontent.com/images/pPfPb5iDwQ0gmmLmQSsfNtPcudA.png',
+          fit: BoxFit.contain,
+          placeholder: (context, url) => const SizedBox(
+            width: 32,
+            height: 32,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+          errorWidget: (context, url, error) => const Text(
+            'Avantour',
+            style: TextStyle(
+              color: Color(0xFF2196F3),
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
           ),
         ),
       ),
-    ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16),
@@ -96,7 +92,7 @@ class TravelDetailPage extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
@@ -118,18 +114,24 @@ class TravelDetailPage extends StatelessWidget {
           children: [
             const Icon(Icons.place_outlined, size: 16, color: Colors.grey),
             const SizedBox(width: 4),
-            const Text("Colombo, Sri Lanka", style: TextStyle(color: Colors.grey)),
+            const Text(
+              "Colombo, Sri Lanka",
+              style: TextStyle(color: Colors.grey),
+            ),
             _dot(),
             const Text("5D4N", style: TextStyle(color: Colors.grey)),
             _dot(),
-            const Text("Beginner-friendly", style: TextStyle(color: Colors.grey)),
+            const Text(
+              "Beginner-friendly",
+              style: TextStyle(color: Colors.grey),
+            ),
             const Spacer(),
             TextButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.favorite_border, size: 18),
               label: const Text("Save"),
               style: TextButton.styleFrom(foregroundColor: Colors.black),
-            )
+            ),
           ],
         ),
       ],
@@ -203,7 +205,7 @@ class TravelDetailPage extends StatelessWidget {
                         elevation: 5,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -221,15 +223,21 @@ class TravelDetailPage extends StatelessWidget {
         const SizedBox(height: 16),
         _buildHighlightCards(),
         const Divider(height: 64),
-        const Text("About this experience",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        const Text(
+          "About this experience",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 24),
         const Wrap(
           spacing: 32,
           runSpacing: 24,
           children: [
             CircularStat(label: "Nature", percent: 0.90, color: Colors.green),
-            CircularStat(label: "Relax", percent: 0.45, color: Colors.blueAccent),
+            CircularStat(
+              label: "Relax",
+              percent: 0.45,
+              color: Colors.blueAccent,
+            ),
             CircularStat(label: "Culture", percent: 0.70, color: Colors.orange),
             CircularStat(label: "City", percent: 0.40, color: Colors.red),
           ],
@@ -254,9 +262,15 @@ class TravelDetailPage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
             if (subtitle != null)
-              Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 14)),
+              Text(
+                subtitle,
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
+              ),
           ],
         ),
         Row(
@@ -265,7 +279,7 @@ class TravelDetailPage extends StatelessWidget {
             const SizedBox(width: 8),
             _circleNav(Icons.chevron_right),
           ],
-        )
+        ),
       ],
     );
   }
@@ -285,12 +299,21 @@ class TravelDetailPage extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _highlightCard("Day 1", "Pidurangala Rock Sunset",
-              "https://images.travelandleisureasia.com/wp-content/uploads/sites/6/2024/03/18182544/venice.jpeg"),
-          _highlightCard("Day 1", "Begin your adventure",
-              "https://cdn-gaecj.nitrocdn.com/JMwuRIbFKRytZpZBQQGkRvqmTfGyKhHA/assets/images/optimized/rev-3745045/turkeytravelplanner.com/wp-content/uploads/2023/12/konya-mevlana.jpg"),
-          _highlightCard("Day 2", "Spice Gardens & Kandy",
-              "https://res.klook.com/image/upload/fl_lossy.progressive,q_85/c_fill,w_680/v1663225108/blog/arh6isb8hkos0nmvlnnz.jpg"),
+          _highlightCard(
+            "Day 1",
+            "Pidurangala Rock Sunset",
+            "https://images.travelandleisureasia.com/wp-content/uploads/sites/6/2024/03/18182544/venice.jpeg",
+          ),
+          _highlightCard(
+            "Day 1",
+            "Begin your adventure",
+            "https://cdn-gaecj.nitrocdn.com/JMwuRIbFKRytZpZBQQGkRvqmTfGyKhHA/assets/images/optimized/rev-3745045/turkeytravelplanner.com/wp-content/uploads/2023/12/konya-mevlana.jpg",
+          ),
+          _highlightCard(
+            "Day 2",
+            "Spice Gardens & Kandy",
+            "https://res.klook.com/image/upload/fl_lossy.progressive,q_85/c_fill,w_680/v1663225108/blog/arh6isb8hkos0nmvlnnz.jpg",
+          ),
         ],
       ),
     );
@@ -307,19 +330,34 @@ class TravelDetailPage extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(url, height: 180, width: 240, fit: BoxFit.cover),
+                child: Image.network(
+                  url,
+                  height: 180,
+                  width: 240,
+                  fit: BoxFit.cover,
+                ),
               ),
               Positioned(
                 top: 12,
                 right: 12,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
-                      color: Colors.white24, borderRadius: BorderRadius.circular(20)),
-                  child: Text(day,
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    day,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -333,8 +371,10 @@ class TravelDetailPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("What's included",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        const Text(
+          "What's included",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 24),
         GridView.count(
           shrinkWrap: true,
@@ -343,11 +383,19 @@ class TravelDetailPage extends StatelessWidget {
           childAspectRatio: 3,
           children: [
             _includeItem(Icons.restaurant, "food", "Day 2-5: Breakfast"),
-            _includeItem(Icons.directions_bus, "transport", "Air-conditioned vehicle"),
+            _includeItem(
+              Icons.directions_bus,
+              "transport",
+              "Air-conditioned vehicle",
+            ),
             _includeItem(Icons.hotel, "lodging", "4 nights in 3/4 star hotels"),
-            _includeItem(Icons.person_pin, "instructor", "English-Speaking guide"),
+            _includeItem(
+              Icons.person_pin,
+              "instructor",
+              "English-Speaking guide",
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -361,11 +409,16 @@ class TravelDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(title.toUpperCase(),
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            Text(desc, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+            Text(
+              title.toUpperCase(),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            Text(
+              desc,
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -374,13 +427,23 @@ class TravelDetailPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Itinerary", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        const Text(
+          "Itinerary",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 24),
         _itineraryStep("Day 1", "Arrival and Sunset Hike to Pidurangala Rock"),
-        _itineraryStep("Day 2", "Sigiriya Fortress Climb, Spice Gardens & Kandy"),
+        _itineraryStep(
+          "Day 2",
+          "Sigiriya Fortress Climb, Spice Gardens & Kandy",
+        ),
         _itineraryStep("Day 3", "Tea Country & Scenic Highland Train to Ella"),
         _itineraryStep("Day 4", "Ella Trekking Adventures"),
-        _itineraryStep("Day 5", "Safari Thrills at Yala & Journey's End", isLast: true),
+        _itineraryStep(
+          "Day 5",
+          "Safari Thrills at Yala & Journey's End",
+          isLast: true,
+        ),
       ],
     );
   }
@@ -394,7 +457,10 @@ class TravelDetailPage extends StatelessWidget {
               Container(
                 width: 12,
                 height: 12,
-                decoration: const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                ),
               ),
               if (!isLast)
                 Expanded(
@@ -436,26 +502,42 @@ class BookingSidebar extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 10))
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("From THB 20,266 / pax",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          const Text(
+            "From THB 20,266 / pax",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 20),
           _bookingOption("4 - 8 Feb 26", "THB 20,266", true),
           const SizedBox(height: 12),
           _bookingOption("4 - 8 Mar 26", "THB 20,266", true),
           const SizedBox(height: 12),
-          _bookingOption("19 - 23 Mar 26", "THB 21,458", false, isConfirmed: true),
+          _bookingOption(
+            "19 - 23 Mar 26",
+            "THB 21,458",
+            false,
+            isConfirmed: true,
+          ),
         ],
       ),
     );
   }
 
-  Widget _bookingOption(String date, String price, bool isNew, {bool isConfirmed = false}) {
+  Widget _bookingOption(
+    String date,
+    String price,
+    bool isNew, {
+    bool isConfirmed = false,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -486,31 +568,48 @@ class BookingSidebar extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(price, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                price,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
           Align(
-              alignment: Alignment.centerLeft,
-              child: Text(date, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              date,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("61 interested",
-                  style: TextStyle(
-                      fontSize: 12, decoration: TextDecoration.underline, color: Colors.grey)),
+              const Text(
+                "61 interested",
+                style: TextStyle(
+                  fontSize: 12,
+                  decoration: TextDecoration.underline,
+                  color: Colors.grey,
+                ),
+              ),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF2196F3),
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: const Text("Choose"),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -523,7 +622,12 @@ class CircularStat extends StatelessWidget {
   final String label;
   final double percent;
   final Color color;
-  const CircularStat({super.key, required this.label, required this.percent, required this.color});
+  const CircularStat({
+    super.key,
+    required this.label,
+    required this.percent,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -549,10 +653,16 @@ class CircularStat extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text("${(percent * 100).toInt()}%",
-                style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+            Text(
+              "${(percent * 100).toInt()}%",
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -577,7 +687,13 @@ class CircleProgressPainter extends CustomPainter {
 
     canvas.drawCircle(size.center(Offset.zero), size.width / 2, bgPaint);
     double angle = 2 * math.pi * percent;
-    canvas.drawArc(Rect.fromLTWH(0, 0, size.width, size.height), -math.pi / 2, angle, false, activePaint);
+    canvas.drawArc(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      -math.pi / 2,
+      angle,
+      false,
+      activePaint,
+    );
   }
 
   @override
@@ -600,4 +716,3 @@ class DottedLinePainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
